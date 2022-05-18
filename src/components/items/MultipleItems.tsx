@@ -34,7 +34,8 @@ const MultipleItems : React.FC<Props> = (props) =>{
         <main>
             <Container className={classes.cardGrid}>
                 <Grid container spacing={4}>
-                    <Grid item>
+                    {props.list.map((item : any) => (
+                    <Grid item key={item} xs={12} sm={6} md={3}>
                         <Card className={classes.card}>
                             <CardMedia
                                 className={classes.cardMedia}
@@ -42,7 +43,6 @@ const MultipleItems : React.FC<Props> = (props) =>{
                                 title="Image"
                             />
                             <CardContent className={classes.cardContent}>
-                                {props.list.map((item : any) => (
                                     <OneItem
                                     image = {item.image}
                                     name = {item.name}
@@ -52,12 +52,10 @@ const MultipleItems : React.FC<Props> = (props) =>{
                                     price = {item.price}
                                     rate = {item.rate}
                                     />
-                                ))}
-
                             </CardContent>
                         </Card>
                     </Grid>
-
+                    ))}
                 </Grid>
             </Container>
         </main>

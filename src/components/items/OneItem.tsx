@@ -46,12 +46,13 @@ const OneItem : React.FC<Props> = (props) =>{
                             title="Image"
                             />
                             <CardContent className={classes.cardContent}>
-                                <Typography gutterBottom variant="h5">
-                                    cc
-                                </Typography>
-                                <Typography>
+                                
+                                {props.name}
+                                {props.category}
 
-                                </Typography>
+
+                                price ={props.price}
+                                {props.rate}
                             </CardContent>
                         </Card>
                     </Grid>
