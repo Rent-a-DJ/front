@@ -1,47 +1,65 @@
 import logo from "../assets/logo.png"
 import * as React from "react";
 import {makeStyles} from "@mui/styles";
-import {Theme} from "@mui/material";
+import {Button, IconButton, Stack, Theme} from "@mui/material";
+import { Typography, AppBar, Card, CardActions, CardContent, CardMedia, CssBaseline, Grid, Toolbar, Container } from "@mui/material";
+import SettingsApplicationsSharpIcon from '@mui/icons-material/SettingsApplicationsSharp';
+import LocalGroceryStoreSharpIcon from '@mui/icons-material/LocalGroceryStoreSharp';
+
 
 const useStyles = makeStyles((theme: Theme) => ({
-    banner:{
-        padding: "5px 0",
-        display: "flex",
-        justifyContent: "space-between",
-        width: "100%",
-        top: "0px",
-        position: "sticky",
-        zIndex: 100,
-    },
+
     logo:{
-        paddingLeft: "20px",
+        size :"large",
+        edge : "start",
     },
-    title:{
-        width : "10",
-    }
+    shop: {
+        fontSize : "large",
+    },
+    banner: {
+        position : "relative",
+        variant : "h6",
+        backgroundColor : "green"
+    },
+
+    name :{
+        variant : "H6",
+        sx : {flexGrow: 1},
+    },
+
+
 
 }));
 
+
 const Banner = () => {
-    const classes = useStyles();
 
-    return(
-
-        <div className={classes.banner}>
-            <div className={classes.logo}>
-            <img
-                src ={"/assets/logo.png"}
-                alt="hippocampe DJ"
-                className="hippo-logo"
-            />
-            </div>
-            <h1 className={classes.title}>Rent a DJ</h1>
+        const classes = useStyles();
+        return (
 
             <div>
+                <CssBaseline/>
+                <AppBar className={classes.banner}>
+                    <Toolbar>
+                        <IconButton className={classes.logo}>
+                        <img src="/src/assets/logo.png" />
+                        </IconButton>
+                        <Typography className={classes.name}>
+                            Rent A DJ
+                        </Typography>
+                        <Stack direction="row" spacing={2}>
+                            <Button>Location</Button>
+                            <Button>DJs</Button>
+                            <Button>Connexion</Button>
+                            <LocalGroceryStoreSharpIcon className={classes.shop} />
+                            <SettingsApplicationsSharpIcon/>
+                        </Stack>
+                    </Toolbar>
 
+                </AppBar>
             </div>
-        </div>
-    );
-};
+        );
+    };
+
 
 export default Banner

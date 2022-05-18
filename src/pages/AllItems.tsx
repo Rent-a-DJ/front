@@ -1,17 +1,18 @@
-import React from "react";
+import React from 'react';
+import MultipleItems from "../components/items/MultipleItems";
+import { makeStyles } from "@mui/styles";
 
-interface IItems {
-    name: string;
-    category : string;
-    id: string;
-    isAvailable : boolean;
-    price : string;
-    rate : any;
-}
 
-const itemsList: IItems[] = [
+const useStyles = makeStyles((theme) => ({
+    allItems: {
+
+    }
+}));
+
+const itemsList = [
 
     {
+        image: "https://source.unsplash.com/random",
         name: 'enceinte',
         category : 'sound',
         id : '1ed',
@@ -20,6 +21,7 @@ const itemsList: IItems[] = [
         rate : 5
     },
     {
+        image: "https://source.unsplash.com/random",
         name: 'lyre',
         category : 'lightning',
         id : '2ed',
@@ -28,6 +30,7 @@ const itemsList: IItems[] = [
         rate : 5
     },
     {
+        image: "https://source.unsplash.com/random",
         name: 'par',
         category : 'lightning',
         id : '3ed',
@@ -36,6 +39,7 @@ const itemsList: IItems[] = [
         rate : 5
     },
     {
+        image: "https://source.unsplash.com/random",
         name: 'derby',
         category : 'lightning',
         id : '4ed',
@@ -44,6 +48,7 @@ const itemsList: IItems[] = [
         rate : 5
     },
     {
+        image: "https://source.unsplash.com/random",
         name: 'lumière UV',
         category : 'lightning',
         id : '5ed',
@@ -53,33 +58,15 @@ const itemsList: IItems[] = [
     },
 ];
 
+const AllItems = () =>{
+    const classes = useStyles();
 
-
-
-function QualityScale(props : any){
-    const range = [1, 2, 3, 4, 5]
     return(
-    <div>  {range.map((rangeElem) => props >=rangeElem ?
-        <span key={rangeElem.toString()}>*</span> : null
-    )}
-    </div>)
-}
+        <div className={classes.allItems}>
+            <MultipleItems list={itemsList}/>
 
-
-
-function ItemsList(){
-    return (
-        <ul>
-            {itemsList.map((item)=>(
-                <li key={item.id}>{ item.name }
-                    {item.isAvailable ? <span>🔥</span> : <span>👎</span>}
-                    <QualityScale  scaleValue={item.rate}/>
-                </li>
-            ))}
-        </ul>
-
+        </div>
     )
 }
-export default  ItemsList
 
-
+export default AllItems;
