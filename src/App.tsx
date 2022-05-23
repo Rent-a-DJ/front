@@ -1,29 +1,78 @@
-import React from 'react';
+import React from "react";
 import Banner from "./components/Banner";
-import AllItems from './pages/AllItems'
+import AllItems from "./pages/AllItems";
 import Footer from "./components/Footer";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import SignIn from "./pages/SignIn";
-
-
-
+import Chatbox from "./components/Chatbox";
+import DJS from "./pages/DJS";
 
 function App() {
-    return (
-        <div className="App">
-            <Banner/>
-            <BrowserRouter>
-                <Routes>
-                        <Route path="/" element={<Welcome/>} />
-                        <Route path="/items" element={<AllItems/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/signin" element={<SignIn/>}/>
-                </Routes>
-            </BrowserRouter>
-            <Footer/>
-        </div>)
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Chatbox />
+                <Banner />
+                <Welcome />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/items"
+            element={
+              <>
+                <Chatbox />
+                <Banner />
+                <AllItems />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                <Chatbox />
+                <Banner />
+                <Login />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <>
+                <Chatbox />
+                <Banner />
+                <SignIn />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/djs"
+            element={
+              <>
+                <Chatbox />
+                <Banner />
+                <DJS />
+                <Footer />
+              </>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
