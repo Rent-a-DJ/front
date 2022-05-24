@@ -8,6 +8,8 @@ import Login from "./pages/Login";
 import SignIn from "./pages/SignIn";
 import Chatbox from "./components/Chatbox";
 import DJS from "./pages/DJS";
+import PasswordForgotten from "./pages/PasswordForgotten";
+import Item from "./pages/Item";
 
 function App() {
   return (
@@ -36,6 +38,17 @@ function App() {
               </>
             }
           />
+            <Route
+                path="/item"
+                element={
+                    <>
+                        <Chatbox />
+                        <Banner />
+                        <Item />
+                        <Footer />
+                    </>
+                }
+            />
           <Route
             path="/login"
             element={
@@ -69,6 +82,17 @@ function App() {
               </>
             }
           />
+            <Route
+                path="/forgotpassword"
+                element={
+                    <>
+                        <Chatbox />
+                        <Banner />
+                        <PasswordForgotten />
+                        <Footer />
+                    </>
+                }
+            />
         </Routes>
       </BrowserRouter>
     </div>

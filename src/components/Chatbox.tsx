@@ -21,6 +21,8 @@ const Chatbox = () => {
         height: "400px",
         backgroundColor: "#F0F9FF",
         borderRadius: "5px",
+        opacity: "0.9",
+
       }}
     >
       <IconButton color="primary" aria-label="upload picture" component="span">
