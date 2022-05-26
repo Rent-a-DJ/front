@@ -18,7 +18,8 @@ const itemsList = [
         id : '1ed',
         isAvailable : true,
         price : '60',
-        rate : 5
+        rate : 5,
+        amount : 0
     },
     {
         image: "https://source.unsplash.com/random",
@@ -27,7 +28,8 @@ const itemsList = [
         id : '2ed',
         isAvailable : true,
         price : '30',
-        rate : 5
+        rate : 5,
+        amount : 0
     },
     {
         image: "https://source.unsplash.com/random",
@@ -36,7 +38,8 @@ const itemsList = [
         id : '3ed',
         isAvailable : true,
         price : '20',
-        rate : 5
+        rate : 5,
+        amount : 0
     },
     {
         image: "https://source.unsplash.com/random",
@@ -45,7 +48,8 @@ const itemsList = [
         id : '4ed',
         isAvailable : true,
         price : '30',
-        rate : 5
+        rate : 5,
+        amount : 0
     },
     {
         image: "https://source.unsplash.com/random",
@@ -54,7 +58,8 @@ const itemsList = [
         id : '5ed',
         isAvailable : true,
         price : '30',
-        rate : 5
+        rate : 5,
+        amount : 0
     },
 ];
 

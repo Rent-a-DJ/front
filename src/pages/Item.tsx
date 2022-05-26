@@ -1,6 +1,6 @@
-import * as React from "react";
+import React from "react";
 import {makeStyles} from "@mui/styles";
-import OneItem from "../components/items/OneItem";
+import OneItem, {CartItemType} from "../components/items/OneItem";
 import coco from "../assets/coco.png";
 import {Alert, Button, Typography} from "@mui/material";
 import louis from "../assets/louis.jpg";
@@ -8,6 +8,10 @@ import {useRef, useState} from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
+type Props = {
+    item: CartItemType;
+    handleAddToCart: (clickedItem: CartItemType) => void;
+};
 
 const useStyles = makeStyles((theme) => ({
     alert: {
@@ -20,17 +24,15 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Item = () => {
+
+const Item: React.FC<Props> = ({ item, handleAddToCart }) => {
+
     const classes = useStyles();
-
-
     const [quantity, setQuantity] = useState("");
-    const [startReservationDate, setStartReservationDate] = useState("");
-    const [endReservationDate, setEndReservationDate] = useState("");
+    const [startReservationDate, setStartReservationDate] = useState<string>("");
+    const [endReservationDate, setEndReservationDate] = useState<string>("");
     const [isReserved, setIsReserved] = useState(false);
     const [isUserLogged, setIsUserLogged] = useState(false);
-    const nameForm = useRef(null)
-
 
     const SubmitValues = () => {
         return(
@@ -65,18 +67,9 @@ const Item = () => {
                     <div style={{display: "flex", alignItems: "center",}}>
                         <div style={{display: "inlineBlock"}}>
                             <form onSubmit={SubmitValues} style={{width: "20%"}}>
-                                <input type="select" onChange={e => setQuantity(e.target.value)}>
-                                    <option value="one">one</option>
-                                    <option value="two">two</option>
-                                    <option value="three">three</option>
-                                    <option value="four">four</option>
-                                    <option value="five">five</option>
-                                </input>
-                                <input type="date" ref={startReservationDate}
-                                       onChange={e => setStartReservationDate(e.target.value)}/>
-                                <input type="date" ref={endReservationDate}
-                                       onChange={e => setEndReservationDate(e.target.value)}/>
-                                <button>Ajouter au panier</button>
+                                <input type="date" name="startRes" onChange={e => setStartReservationDate(e.target.value)}/>
+                                <input type="date" name="endRes" onChange={e => setEndReservationDate(e.target.value)}/>
+                                <button onClick={() => handleAddToCart(item)}>Ajouter au panier</button>
                             </form>
                         </div>
                     </div>
@@ -85,6 +78,5 @@ const Item = () => {
 
 
         </div>
-    );
-};
+    )};
 export default Item;

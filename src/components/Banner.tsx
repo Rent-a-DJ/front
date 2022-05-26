@@ -28,51 +28,47 @@ import SettingsApplicationsSharpIcon from "@mui/icons-material/SettingsApplicati
 import LocalGroceryStoreSharpIcon from "@mui/icons-material/LocalGroceryStoreSharp";
 import logo from "../assets/logo.png";
 import {Link, NavLink} from "react-router-dom";
+import {CartItemType} from "./items/OneItem";
+import {useState} from "react";
+import CartPage from "../pages/CartPage";
 
-const basket = ["Panier", "Commander maintenant"];
-const pages = ["Accueil", "Matériel", "Djs"];
-const userSettings = ["Inscription", "Connexion"];
-
-
-const basketLink = ["/basket", "/orderNow"];
-const profileLink = ["/signIn", "/logIn"];
-const navbarLink = ["/", "/items", "/djs"];
 
 const useStyles = makeStyles((theme: Theme) => ({
-    shop: {
-        fontSize: "large",
-    },
+
     logo: {
         width: "50px",
         height: "auto",
     },
-    linkStyle: {
-        textDecoration: "none",
-        color: "white",
-    },
-    menuStyle: {
+    linkUserStyle: {
         textDecoration: "none",
         color: "black",
     },
+    linkBasketStyle: {
+        textDecoration: "none",
+        color: "black",
+    },
+    linkMenuStyle: {
+        textDecoration: "none",
+        color: "white",
+    },
     banner: {
         variant: "h6",
+
     },
 
     name: {
-        variant: "H6",
+        variant: "h6",
         sx: {flexGrow: 1},
     },
 }));
 
 const Banner = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-        null
-    );
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-        null
-    );
-    const [anchorElBasket, setAnchorElBasket] =
-        React.useState<null | HTMLElement>(null);
+    const [cartOpen, setCartOpen] = useState(false);
+
+
+    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const [anchorElCart, setAnchorElCart] = React.useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -80,8 +76,8 @@ const Banner = () => {
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
     };
-    const handleOpenBasketMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElBasket(event.currentTarget);
+    const handleCloseCart = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElCart(event.currentTarget);
     };
 
     const handleCloseNavMenu = () => {
@@ -92,12 +88,21 @@ const Banner = () => {
         setAnchorElUser(null);
     };
 
-    const handleCloseBasketMenu = () => {
-        setAnchorElBasket(null);
-    };
 
-    const [itemNumber, setItemNumber] = React.useState<null | HTMLElement>(null);
+    const basket = ["Panier", "Commander maintenant"];
+    const pages = ["Accueil", "Matériel", "Djs"];
+    const userSettings = ["Inscription", "Connexion"];
 
+
+    const basketLink = ["/basket", "/orderNow"];
+    const profileLink = ["/signIn", "/logIn"];
+    const navbarLink = ["/", "/allitems", "/djs"];
+
+    const [itemNumber, setItemNumber] = useState([] as CartItemType[]);
+
+
+    const getTotalItems = (items: CartItemType[]) =>
+        items.reduce((ack: number, item) => ack + item.amount, 0);
 
 
     const [userImg, setUserImg] = React.useState<null | HTMLElement>(null);
@@ -107,7 +112,7 @@ const Banner = () => {
         <AppBar sx={{position: "relative !important"}} className={classes.banner}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Link to="/" className={classes.linkStyle}>
+                    <Link to="/" className={classes.linkMenuStyle}>
                         <IconButton sx={{display: {xs: "flex", md: "none"}, mr: 1}}>
                             <img src={logo} alt="logo" className={classes.logo}/>
                         </IconButton>
@@ -121,7 +126,7 @@ const Banner = () => {
                         }}
                     >
                         {pages.map((page, index) => (
-                            <Link to={navbarLink[index]} className={classes.linkStyle}>
+                            <Link to={navbarLink[index]} className={classes.linkMenuStyle}>
                             <Button
                                     key={page}
                                     onClick={handleCloseNavMenu}
@@ -133,46 +138,23 @@ const Banner = () => {
 
                         ))}
                     </Box>
-                    <Box>
-                        <Tooltip title="Panier">
+                    <Box >
+                        <Tooltip title="Panier" >
                             <IconButton
-                                onClick={handleOpenUserMenu}
-                                size="large"
+                                onClick={() => setCartOpen(true)}
                                 aria-label="show shopping"
                                 color="inherit"
                             >
-                                <LocalGroceryStoreSharpIcon className={classes.shop}/>
-                                <Badge badgeContent={itemNumber} color="error"></Badge>
+                                {cartOpen === true &&
+                                    <CartPage/>}
+                                <LocalGroceryStoreSharpIcon/>
+                                <Badge badgeContent={getTotalItems(itemNumber)} color="error"></Badge>
                             </IconButton>
                         </Tooltip>
-                        <Menu
-                            sx={{mt: "45px"}}
-                            id="menu-appbar"
-                            anchorEl={anchorElBasket}
-                            anchorOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            open={Boolean(anchorElBasket)}
-                            onClose={handleCloseBasketMenu}
-                        >
-                            {basket.map((item, index) => (
-                                <Link to={basketLink[index]} className={classes.menuStyle}>
-                                    <MenuItem key={item} onClick={handleCloseBasketMenu}>
-                                        <Typography textAlign="center">{item}</Typography>
-                                    </MenuItem>
-                                </Link>
-                            ))}
-                        </Menu>
                     </Box>
                     <Box>
                         <Tooltip title="Profil">
-                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                            <IconButton onClick={handleOpenUserMenu}>
                                 <Avatar
                                     alt="userAvatar"
                                     src="https://source.unsplash.com/random"
@@ -195,10 +177,10 @@ const Banner = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {userSettings.map((setting, index) => (
-                                <Link to={profileLink[index]} className={classes.menuStyle}>
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
+                            {userSettings.map((item, index) => (
+                                <Link to={profileLink[index]} className={classes.linkUserStyle}>
+                                    <MenuItem key={item} onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center">{item}</Typography>
                                     </MenuItem>
                                 </Link>
                             ))}

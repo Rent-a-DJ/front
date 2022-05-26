@@ -5,14 +5,15 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {Link} from "react-router-dom";
 
-type Props = {
+export type CartItemType = {
     image: string;
     name: string;
     category: string;
-    id: string;
+    id: number;
     isAvailable: boolean;
-    price: string;
+    price: number;
     rate: number;
+    amount:number;
 }
 
 
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 
-const OneItem: React.FC<Props> = (props) => {
+const OneItem: React.FC<CartItemType> = (props) => {
     const classes = useStyles();
 
 
@@ -58,7 +59,7 @@ const OneItem: React.FC<Props> = (props) => {
 
                 >
                     <CardMedia component={Link}
-                               to="/item"
+                               to="/allitems/item"
                                className={classes.cardMedia}
                                image={props.image}
                                title="image"

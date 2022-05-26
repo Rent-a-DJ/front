@@ -43,6 +43,7 @@ const MultipleItems: React.FC<Props> = (props) => {
                                             isAvailable={item.isAvailable}
                                             price={item.price}
                                             rate={item.rate}
+                                            amount={item.amount}
                                         />
                                     </div>
 
