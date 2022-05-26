@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   flex: {},
 }));
 
-const Chatbox = () => {
+const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(true);
   const classes = useStyles();
 
@@ -128,4 +128,4 @@ const Chatbox = () => {
     </div>
   );
 };
-export default Chatbox;
+export default ChatBox;
