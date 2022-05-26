@@ -1,89 +1,27 @@
 import React from "react";
 import Banner from "./components/Banner";
 import AllItems from "./pages/AllItems";
-import Footer from "./components/Footer";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import SignIn from "./pages/SignIn";
 import Chatbox from "./components/Chatbox";
 import DJS from "./pages/DJS";
 import PasswordForgotten from "./pages/PasswordForgotten";
-import Item from "./pages/Item";
-import CartPage from "./pages/CartPage";
 
 function App() {
   return (
     <div className="App">
+      <Chatbox/>
+      <Banner/>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Chatbox />
-                <Banner />
-                <Welcome />
-                <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/allitems"
-            element={
-              <>
-                <Chatbox />
-                <Banner />
-                <AllItems />
-                <Footer />
-              </>
-            }
-          />
-
-          <Route
-            path="/login"
-            element={
-              <>
-                <Chatbox />
-                <Banner />
-                <Login />
-                <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/signin"
-            element={
-              <>
-                <Chatbox />
-                <Banner />
-                <SignIn />
-                <Footer />
-              </>
-            }
-          />
-          <Route
-            path="/djs"
-            element={
-              <>
-                <Chatbox />
-                <Banner />
-                <DJS />
-                <Footer />
-              </>
-            }
-          />
-            <Route
-                path="/forgotpassword"
-                element={
-                    <>
-                        <Chatbox />
-                        <Banner />
-                        <PasswordForgotten />
-                        <Footer />
-                    </>
-                }
-            />
+          <Route path="/" element={Welcome}/>
+          <Route path="/allitems" element={AllItems}/>
+          <Route path="/login" element={Login}/>
+          <Route path="/signin" element={SignIn}/>
+          <Route path="/djs" element={DJS}/>
+          <Route path="/forgotpassword" element={PasswordForgotten}/>
         </Routes>
       </BrowserRouter>
     </div>
