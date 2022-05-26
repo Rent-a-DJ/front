@@ -6,11 +6,11 @@ import logo from "../assets/logo.png";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
-    logo: {
+    fontLogo: {
         position: "fixed",
         left: 0,
         top: 0,
-        width: "100vw",
+        width: "100%",
     },
 }));
 
@@ -21,7 +21,7 @@ const Login: React.FC = () => {
 
     return (
         <div>
-            <img src={logo} className={classes.logo} alt="Login" />
+            <img src={logo} className={classes.fontLogo} alt="Login" />
             <div style={{ position: "absolute", top: 0, left: 0, width: "100%" }}>
                 <Grid
                     container

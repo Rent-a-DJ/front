@@ -10,6 +10,7 @@ import Chatbox from "./components/Chatbox";
 import DJS from "./pages/DJS";
 import PasswordForgotten from "./pages/PasswordForgotten";
 import Item from "./pages/Item";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
             }
           />
           <Route
-            path="/items"
+            path="/allitems"
             element={
               <>
                 <Chatbox />
@@ -38,17 +39,7 @@ function App() {
               </>
             }
           />
-            <Route
-                path="/item"
-                element={
-                    <>
-                        <Chatbox />
-                        <Banner />
-                        <Item />
-                        <Footer />
-                    </>
-                }
-            />
+
           <Route
             path="/login"
             element={

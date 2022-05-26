@@ -21,7 +21,7 @@ import {useState} from "react";
 import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => ({
-    logo: {
+    fontLogo: {
         position: "fixed",
         left: 0,
         top: 0,
@@ -42,7 +42,7 @@ const SignIn = () => {
 
     return (
         <div>
-            <img src={logo} className={classes.logo} alt="Login"/>
+            <img src={logo} className={classes.fontLogo} alt="Login"/>
             <div style={{position: "relative", top: "55%", left: "35%"}}>
                 <Grid container className={"login"}>
                     <Grid item xs={10} sm={5} md={3}>
