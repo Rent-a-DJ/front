@@ -2,12 +2,14 @@ import * as React from "react";
 import { makeStyles } from "@mui/styles";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-
+import {useState} from "react";
+import "../styles/chatbot.css"
 const useStyles = makeStyles((theme) => ({
   flex: {},
 }));
 
 const Chatbox = () => {
+  const [isOpen, setIsOpen] = useState(true);
   const classes = useStyles();
 
   return (
@@ -24,8 +26,9 @@ const Chatbox = () => {
         opacity: "0.9",
 
       }}
+      className={isOpen ? "" : "hidden"}
     >
-      <IconButton color="primary" aria-label="upload picture" component="span">
+      <IconButton color="primary" aria-label="upload picture" component="span" onClick={() => setIsOpen(!isOpen)}>
         <CloseIcon />
       </IconButton>
       <div

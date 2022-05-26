@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const itemsList = [
-
     {
         image: "https://source.unsplash.com/random",
         name: 'enceinte',
@@ -64,7 +63,6 @@ const AllItems = () =>{
     return(
         <div className={classes.allItems}>
             <MultipleItems list={itemsList}/>
-
         </div>
     )
 }
