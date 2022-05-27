@@ -21,7 +21,8 @@ const useStyles = makeStyles(() => ({
     borderWidth: "20",
     borderColor: "white",
     borderStyle: "solid",
-    padding: "1rem"
+    padding: "1rem",
+    textShadow: "#474747 3px 5px 2px",
   },
   titleContainer: {
     marginTop: "175px",
@@ -32,7 +33,10 @@ const useStyles = makeStyles(() => ({
     marginTop: "10%",
     marginLeft: "auto",
     marginRight: "auto",
-    color: "white"
+    color: "white",
+    fontSize: "20px",
+    textShadow: "#474747 3px 5px 2px",
+
   }
 
 

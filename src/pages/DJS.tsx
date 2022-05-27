@@ -1,76 +1,93 @@
 import * as React from "react";
-import { makeStyles } from "@mui/styles";
+import {makeStyles} from "@mui/styles";
 import louis from "../assets/louis.jpg";
 import coco from "../assets/coco.png";
-import { Button } from "@mui/material";
+import {Button} from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
-  flex: {
-    display: "flex",
+  title: {
+    marginTop: "1rem",
+    textAlign: "center",
   },
+  djContainer: {
+    display: "flex",
+    flexDirection: "row",
+    width: "60%",
+    height: "250px",
+    marginTop: "3rem",
+    backgroundColor: "white",
+    boxShadow: "-2px -1px 23px 3px rgba(0,0,0,0.46)",
+    padding: "1rem",
+    borderRadius: "20px",
+    marginLeft: "auto",
+    marginRight: "auto"
+  },
+  djImage: {
+    width: "30%",
+    borderRadius: "10px"
+  },
+  informationLabel: {
+    fontWeight: "bold",
+  },
+  djsContainer: {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%"
+  },
+  pageContainer: {
+    height: "100%",
+    backgroundColor: "whitesmoke"
+  },
+  detailsContainer: {
+    marginLeft: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  }
 }));
 
 const DJS = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      <h1 style={{ textAlign: "center" }}>Louer un DJ</h1>
-      <div style={{ margin: "20px", display: "flex" }}>
-        <img src={coco} width="600px" style={{ margin: "20px" }} />
-        <div>
-          <p style={{ textAlign: "center" }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Pellentesque dapibus metus semper diam vulputate, quis fringilla est
-            viverra. Fusce mi lacus, luctus id nisl quis, lacinia efficitur
-            ligula. Phasellus ullamcorper tristique erat, vel suscipit felis
-            porta at. Nam aliquet mattis orci, vehicula pharetra sem egestas ac.
-            Nulla scelerisque massa a turpis vulputate, sodales iaculis ante
-            ultricies. Vestibulum eget leo ac diam hendrerit vestibulum
-            facilisis quis dolor. Aenean quam nibh, vehicula at eros eget,
-            faucibus ornare nisi. Morbi rhoncus diam vel ante ullamcorper
-            laoreet. Proin porttitor feugiat lectus at eleifend. Pellentesque
-            habitant morbi tristique senectus et netus et malesuada fames ac
-            turpis egestas. Quisque sit amet suscipit arcu, vel pellentesque
-            nisi. Vestibulum ante ipsum primis in faucibus orci luctus et
-            ultrices posuere cubilia curae; Fusce enim ante, laoreet a odio
-            dignissim, pulvinar blandit erat. Maecenas a magna vitae lacus
-            sagittis vulputate et a magna. Vivamus ullamcorper, erat et egestas
-            cursus, lorem nisi consectetur sapien, a dignissim tellus nisi in
-            erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
-          <Button style={{ width: "100%" }} variant="contained">
-            Je TE choisis
-          </Button>
-        </div>
-      </div>
+    <div className={classes.pageContainer}>
+      <h1 className={classes.title}>Louer un DJ</h1>
+      <div className={classes.djsContainer}>
+        <div className={classes.djContainer}>
+          <img src={coco} className={classes.djImage}/>
+          <div className={classes.detailsContainer}>
+            <div><p><span className={classes.informationLabel}>Description: </span> DJ Snoke est un dj né en région
+              parisienne. Il est devenu fan d'ondes sonores à l'age de 8 ans. Son groove ne vous laissera pas
+              indiférent.</p></div>
 
-      <div style={{ margin: "20px", display: "flex" }}>
-        <img src={louis} width="600px" style={{ margin: "20px" }} />
-        <div>
-          <p style={{ textAlign: "center" }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Pellentesque dapibus metus semper diam vulputate, quis fringilla est
-            viverra. Fusce mi lacus, luctus id nisl quis, lacinia efficitur
-            ligula. Phasellus ullamcorper tristique erat, vel suscipit felis
-            porta at. Nam aliquet mattis orci, vehicula pharetra sem egestas ac.
-            Nulla scelerisque massa a turpis vulputate, sodales iaculis ante
-            ultricies. Vestibulum eget leo ac diam hendrerit vestibulum
-            facilisis quis dolor. Aenean quam nibh, vehicula at eros eget,
-            faucibus ornare nisi. Morbi rhoncus diam vel ante ullamcorper
-            laoreet. Proin porttitor feugiat lectus at eleifend. Pellentesque
-            habitant morbi tristique senectus et netus et malesuada fames ac
-            turpis egestas. Quisque sit amet suscipit arcu, vel pellentesque
-            nisi. Vestibulum ante ipsum primis in faucibus orci luctus et
-            ultrices posuere cubilia curae; Fusce enim ante, laoreet a odio
-            dignissim, pulvinar blandit erat. Maecenas a magna vitae lacus
-            sagittis vulputate et a magna. Vivamus ullamcorper, erat et egestas
-            cursus, lorem nisi consectetur sapien, a dignissim tellus nisi in
-            erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
-          <Button style={{ width: "100%" }} variant="contained">
-            Je TE choisis
-          </Button>
+            <div><span className={classes.informationLabel}>Nom: </span><span>DJ Snoke</span></div>
+            <div><span className={classes.informationLabel}>Déplacement: </span><span>Région Parisienne</span></div>
+            <div><span className={classes.informationLabel}>Prix par jour: </span><span>70€</span></div>
+            <div>
+              <Button style={{width: "100%"}} variant="contained">
+                Je TE choisis
+              </Button>
+            </div>
+          </div>
+        </div>
+
+
+        <div className={classes.djContainer}>
+          <img src={louis} className={classes.djImage}/>
+          <div className={classes.detailsContainer}>
+            <div><p><span className={classes.informationLabel}>Description: </span> DJ Snoke est un dj né en région
+              parisienne. Il est devenu fan d'ondes sonores à l'age de 8 ans. Son grouve ne vous laissera pas
+              indiférent.</p></div>
+
+            <div><span className={classes.informationLabel}>Nom: </span><span>DJ Snoke</span></div>
+            <div><span className={classes.informationLabel}>Déplacement: </span><span>Région Parisienne</span></div>
+            <div><span className={classes.informationLabel}>Prix par jour: </span><span>70€</span></div>
+            <div>
+              <Button style={{width: "100%"}} variant="contained">
+                Je TE choisis
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
