@@ -10,30 +10,33 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "blueviolet",
     },
     sidebarList: {
-        height:"auto",
-        width:"100%",
-        padding:0,
+        height: "auto",
+        width: "100%",
+        padding: 0,
     },
     row: {
-        width:"100%",
-        height:"60px",
-        listStyleType:"none",
-        margin:0,
-        display:"flex",
-        flexDirection:"row",
-        color:"white",
-        justifyContent:"center",
+        width: "100%",
+        height: "60px",
+        listStyleType: "none",
+        margin: 0,
+        display: "flex",
+        flexDirection: "row",
+        color: "white",
+        justifyContent: "center",
         alignItems: "center",
+        '&:hover': {
+            background: "#f00",
+        },
     },
     icon: {
-        flex:"30%",
-        display:"grid",
-        placeItems:"center",
+        flex: "30%",
+        display: "grid",
+        placeItems: "center",
     },
     title: {
-        flex:"70%",
+        flex: "70%",
     },
-}));
+    }));
 
 function SidebarAdmin() {
     const classes = useStyles();
@@ -47,8 +50,8 @@ function SidebarAdmin() {
                             key={key}
                             className={classes.row}
                             onClick={() => {
-                            window.location.pathname = value.link
-                        }}>
+                                window.location.pathname = value.link
+                            }}>
                             {" "}
                             <div className={classes.icon}>{value.icon}</div>
                             {" "}
