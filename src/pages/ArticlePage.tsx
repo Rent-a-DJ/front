@@ -1,16 +1,12 @@
 import React from "react";
 import {makeStyles} from "@mui/styles";
-import OneItem, {CartItemType} from "../components/items/OneItem";
-import coco from "../assets/coco.png";
-import {Alert, Button, Typography} from "@mui/material";
-import louis from "../assets/louis.jpg";
-import {useRef, useState} from "react";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import {Alert} from "@mui/material";
+import {useState} from "react";
+import {ArticleType} from "../types/ArticleType";
 
 type Props = {
-    item: CartItemType;
-    handleAddToCart: (clickedItem: CartItemType) => void;
+    item: ArticleType;
+    handleAddToCart: (clickedItem: ArticleType) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Item: React.FC<Props> = ({ item, handleAddToCart }) => {
+const ArticlePage: React.FC<Props> = ({ item, handleAddToCart }) => {
 
     const classes = useStyles();
     const [quantity, setQuantity] = useState("");
@@ -79,4 +75,4 @@ const Item: React.FC<Props> = ({ item, handleAddToCart }) => {
 
         </div>
     )};
-export default Item;
+export default ArticlePage;

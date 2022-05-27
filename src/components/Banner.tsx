@@ -28,9 +28,9 @@ import SettingsApplicationsSharpIcon from "@mui/icons-material/SettingsApplicati
 import LocalGroceryStoreSharpIcon from "@mui/icons-material/LocalGroceryStoreSharp";
 import logo from "../assets/logo.png";
 import {Link, NavLink} from "react-router-dom";
-import {CartItemType} from "./items/OneItem";
 import {useState} from "react";
 import CartPage from "../pages/CartPage";
+import {ArticleType} from "../types/ArticleType";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -96,12 +96,12 @@ const Banner = () => {
 
     const basketLink = ["/basket", "/orderNow"];
     const profileLink = ["/signIn", "/logIn"];
-    const navbarLink = ["/", "/allitems", "/djs"];
+    const navbarLink = ["/", "/articles", "/djs"];
 
-    const [itemNumber, setItemNumber] = useState([] as CartItemType[]);
+    const [itemNumber, setItemNumber] = useState([] as ArticleType[]);
 
 
-    const getTotalItems = (items: CartItemType[]) =>
+    const getTotalItems = (items: ArticleType[]) =>
         items.reduce((ack: number, item) => ack + item.amount, 0);
 
 

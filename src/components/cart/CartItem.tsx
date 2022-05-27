@@ -1,7 +1,8 @@
 import Button from '@material-ui/core/Button';
 import {makeStyles, styled} from "@mui/styles";
 import {Theme} from "@mui/material";
-import {CartItemType} from "../items/OneItem";
+import {ArticleType} from "../../types/ArticleType";
+import React from "react";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -24,8 +25,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 
 type Props = {
-    item: CartItemType;
-    addToCart: (clickedItem: CartItemType) => void;
+    item: ArticleType;
+    addToCart: (clickedItem: ArticleType) => void;
     removeFromCart: (id: number) => void;
 };
 
@@ -60,7 +61,7 @@ const CartItem: React.FC<Props> = ({item, addToCart, removeFromCart}) => {
                     </Button>
                 </div>
             </div>
-            <img src={item.image} alt={item.name}/>
+            <img src={item.images[0]} alt={item.name}/>
         </div>
     )
 };

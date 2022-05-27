@@ -1,15 +1,15 @@
 import React from "react";
 import CartItem from "./CartItem";
-import {CartItemType} from "../items/OneItem";
 import {makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
+import {ArticleType} from "../../types/ArticleType";
 
 
 type Props = {
-    cartItems: CartItemType[];
-    addToCart: (clickedItem: CartItemType) => void;
+    cartItems: ArticleType[];
+    addToCart: (clickedItem: ArticleType) => void;
     removeFromCart: (id: number) => void;
 };
 
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Cart: React.FC<Props> = ({cartItems, addToCart, removeFromCart}) => {
     const classes = useStyles();
 
-    const calculateTotal = (items: CartItemType[]) =>
+    const calculateTotal = (items: ArticleType[]) =>
         items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
 
     return (

@@ -2,18 +2,15 @@ import * as React from "react";
 import { useState } from 'react';
 import Cart from '../components/cart/Cart';
 import Drawer from '@material-ui/core/Drawer';
-import Grid from '@material-ui/core/Grid';
-import Badge from '@material-ui/core/Badge';
-import {CartItemType} from "../components/items/OneItem";
+import {ArticleType} from "../types/ArticleType";
 
 
 
 const CartPage = () => {
 
     const [cartOpen, setCartOpen] = useState(false);
-    const [cartItems, setCartItems] = useState([] as CartItemType[]);
-
-    const handleAddToCart = (clickedItem: CartItemType) => {
+    const [cartItems, setCartItems] = useState([] as ArticleType[]);
+    const handleAddToCart = (clickedItem: ArticleType) => {
         setCartItems(prev => {
             // 1. Is the item already added in the cart?
             const isItemInCart = prev.find(item => item.id === clickedItem.id);
@@ -39,7 +36,7 @@ const CartPage = () => {
                 } else {
                     return [...ack, item];
                 }
-            }, [] as CartItemType[])
+            }, [] as ArticleType[])
         );
     };
 
