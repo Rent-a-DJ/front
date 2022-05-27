@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Card, CardContent, CardMedia, Container, Grid, Theme} from "@mui/material"
 import {makeStyles} from "@mui/styles";
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -6,6 +6,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {ArticleType} from "../types/ArticleType";
 import {Carousel} from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Button from "@material-ui/core/Button";
+import CartContext from "../contextes/CartContext";
 
 const useStyles = makeStyles((theme: Theme) => ({
   oneItemGeneral: {
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: "0 !important",
   },
   card: {
-    height: "350px",
+    height: "400px",
     textDecoration: "none",
   },
   detailsContainer: {
@@ -41,22 +43,39 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: 0,
     overflowY: "scroll",
     height: "100px"
+  },
+  buttonContainer: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    marginTop: "1rem"
+  },
+  redButton: {
+    backgroundColor: "red",
   }
 }));
 
 type Props = {
   article: ArticleType;
-  setSelectedArticle: (article: ArticleType) => void;
 }
 
 const Article: React.FC<Props> = (props) => {
   const classes = useStyles();
-  const [likes, setLikes] = useState(0);
+  const [likes, setLikes] = useState(props.article.rate);
   const [liked, setLiked] = useState(false);
+  const cartContextValue = useContext(CartContext);
 
   const likeClick = () => {
     setLiked(!liked);
     setLikes(liked ? likes - 1 : likes + 1);
+  }
+  const isInCart = cartContextValue.articles.find((element) => (element.id == props.article.id)) != undefined;
+
+  const handleClick = () => {
+    if (isInCart)
+      cartContextValue.setArticles(cartContextValue.articles.filter((element) => (element.id != props.article.id)))
+    else
+      cartContextValue.setArticles([...cartContextValue.articles, props.article]);
   }
 
   return (
@@ -71,7 +90,6 @@ const Article: React.FC<Props> = (props) => {
               props.article.images.map(image => {
                 return (
                   <CardMedia component="div"
-                             onClick={() => props.setSelectedArticle(props.article)}
                              className={classes.cardMedia}
                              image={image}
                              title="image"
@@ -85,12 +103,7 @@ const Article: React.FC<Props> = (props) => {
               <div className={classes.titleContainer}>
                 <span>{props.article.name}</span>
               </div>
-              <p className={"scroll"}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque dapibus metus semper diam vulputate, quis fringilla est
-                Pellentesque dapibus metus semper diam vulputate, quis fringilla est
-                Pellentesque dapibus metus semper diam vulputate, quis fringilla est
-              </p>
+              <p className={"scroll"}>{props.article.description}</p>
               <Grid container justifyContent="space-between" alignItems="flex-end">
                 <div>
                   <span>Prix/jour :</span>
@@ -105,6 +118,9 @@ const Article: React.FC<Props> = (props) => {
                       <FavoriteBorderIcon className={classes.icon}/>
                     )
                   }
+                </div>
+                <div className={classes.buttonContainer}>
+                  <Button variant="contained" className={isInCart ? classes.redButton : ""} onClick={handleClick}>{isInCart ? "Enlever du panier" : "Ajouter au panier"}</Button>
                 </div>
               </Grid>
             </div>

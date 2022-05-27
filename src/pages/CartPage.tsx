@@ -4,10 +4,11 @@ import Cart from '../components/cart/Cart';
 import Drawer from '@material-ui/core/Drawer';
 import {ArticleType} from "../types/ArticleType";
 
+type Props = {
+  isOpen: boolean
+}
 
-
-const CartPage = () => {
-
+const CartPage: React.FC<Props> = (props) => {
     const [cartOpen, setCartOpen] = useState(false);
     const [cartItems, setCartItems] = useState([] as ArticleType[]);
     const handleAddToCart = (clickedItem: ArticleType) => {
@@ -18,7 +19,7 @@ const CartPage = () => {
             if (isItemInCart) {
                 return prev.map(item =>
                     item.id === clickedItem.id
-                        ? { ...item, amount: item.amount + 1 }
+                        ? item
                         : item
                 );
             }
@@ -31,14 +32,15 @@ const CartPage = () => {
         setCartItems(prev =>
             prev.reduce((ack, item) => {
                 if (item.id === id) {
-                    if (item.amount === 1) return ack;
-                    return [...ack, { ...item, amount: item.amount - 1 }];
+                    return ack;
                 } else {
                     return [...ack, item];
                 }
             }, [] as ArticleType[])
         );
     };
+    if (!props.isOpen)
+      return <></>;
 
     return (
         <div style={{

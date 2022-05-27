@@ -1,11 +1,10 @@
-
 export type ArticleType = {
-  id : number,
+  id: number,
   images: string[],
   name: string,
-  category : string,
-  isAvailable : boolean,
-  price : number,
-  rate : number,
-  amount : number,
+  category: string,
+  isAvailable: boolean,
+  price: number,
+  rate: number,
+  description: string,
 }

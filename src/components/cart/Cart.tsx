@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import CartItem from "./CartItem";
 import {makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import {ArticleType} from "../../types/ArticleType";
+import cartContext from "../../contextes/CartContext";
 
 
 type Props = {
@@ -23,9 +24,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Cart: React.FC<Props> = ({cartItems, addToCart, removeFromCart}) => {
     const classes = useStyles();
-
-    const calculateTotal = (items: ArticleType[]) =>
-        items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
+    const cartContextValue = useContext(cartContext);
+    const total = cartContextValue.articles.reduce((ack: number, item) => ack +  item.price, 0);
 
     return (
         <div className={classes.compo}>
@@ -33,8 +33,8 @@ const Cart: React.FC<Props> = ({cartItems, addToCart, removeFromCart}) => {
                 <CloseIcon/>
             </IconButton>
             <h2>Votre Panier</h2>
-            {cartItems.length === 0 ? <p>No items in cart.</p> : null}
-            {cartItems.map(item => (
+            {cartContextValue.articles.length === 0 ? <p>No items in cart.</p> : null}
+            {cartContextValue.articles.map(item => (
                 <CartItem
                     key={item.id}
                     item={item}
@@ -42,7 +42,7 @@ const Cart: React.FC<Props> = ({cartItems, addToCart, removeFromCart}) => {
                     removeFromCart={removeFromCart}
                 />
             ))}
-            <h2>Total: ${calculateTotal(cartItems).toFixed(2)}</h2>
+            <h2>Total: ${total.toFixed(2)}</h2>
         </div>
     );
 };
