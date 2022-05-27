@@ -9,7 +9,6 @@ import PasswordForgotten from "./pages/PasswordForgotten";
 import ChatBox from "./components/ChatBox";
 import "./styles/utils.css";
 import SidebarAdmin from "./components/sidebar/SidebarAdmin";
-import ReservationSelector from "./components/ReservationSelector";
 import ArticlesPage from "./pages/ArticlesPage";
 import DateRangeContext from "./contextes/DateRangeContext";
 import SelectDateRangeModal from "./components/SelectDateRangeModal";
@@ -21,6 +20,7 @@ import CartContext from "./contextes/CartContext";
 function App() {
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
   const [articles, setArticles] = useState<ArticleType[]>([]);
+
   return (
     <div className="App">
       <div className={"fullHeight flex column spaceBetween"}>
@@ -37,7 +37,6 @@ function App() {
               <Route path="/signin" element={<SignIn/>}/>
               <Route path="/forgotpassword" element={<PasswordForgotten/>}/>
               <Route path="/sidebar" element={<SidebarAdmin/>}/>
-              <Route path="/test" element={<ReservationSelector/>}/>
               <Route path="/articles" element={<ArticlesPage/>}/>
               <Route path="/djs" element={<DJS/>}/>
             </Routes>

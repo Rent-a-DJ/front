@@ -36,10 +36,7 @@ const useStyles = makeStyles(() => ({
     color: "white",
     fontSize: "20px",
     textShadow: "#474747 3px 5px 2px",
-
-  }
-
-
+  },
 }));
 
 const Welcome = () => {
@@ -51,7 +48,6 @@ const Welcome = () => {
         <div className={classes.titleContainer}>
           <span className={classes.title}>Rent a DJ</span>
         </div>
-
         <p className={classes.details}>Rent a Dj est une plateforme de location et de service spécialisée autour de l'univers de la musique !</p>
       </div>
     </div>

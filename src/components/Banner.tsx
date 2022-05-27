@@ -8,29 +8,20 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Stack,
   Theme,
   Tooltip,
 } from "@mui/material";
 import {
   Typography,
   AppBar,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CssBaseline,
-  Grid,
   Toolbar,
   Container,
 } from "@mui/material";
-import SettingsApplicationsSharpIcon from "@mui/icons-material/SettingsApplicationsSharp";
 import LocalGroceryStoreSharpIcon from "@mui/icons-material/LocalGroceryStoreSharp";
 import logo from "../assets/logo.png";
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useContext, useState} from "react";
 import CartPage from "../pages/CartPage";
-import {ArticleType} from "../types/ArticleType";
 import cartContext from "../contextes/CartContext";
 
 
@@ -121,18 +112,18 @@ const Banner = () => {
             ))}
           </Box>
           <Box>
-            <Tooltip title="Panier">
               <Badge badgeContent={cartContextValue.articles.length} color="success">
                 <IconButton
-                  onClick={() => setCartOpen(!cartOpen)}
+                  onClick={() => setCartOpen(!cartOpen && cartContextValue.articles.length != 0)}
                   aria-label="show shopping"
                   color="inherit"
                 >
-                  <CartPage isOpen={cartOpen}/>
+                  <Tooltip title="Panier">
                   <LocalGroceryStoreSharpIcon/>
+                  </Tooltip>
                 </IconButton>
+                  <CartPage isOpen={cartOpen} setIsOpen={setCartOpen}/>
               </Badge>
-            </Tooltip>
           </Box>
           <Box>
             <Tooltip title="Profil">

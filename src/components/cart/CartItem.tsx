@@ -1,5 +1,4 @@
-import Button from '@material-ui/core/Button';
-import {makeStyles, styled} from "@mui/styles";
+import {makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 import {ArticleType} from "../../types/ArticleType";
 import React from "react";
@@ -26,11 +25,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 type Props = {
     item: ArticleType;
-    addToCart: (clickedItem: ArticleType) => void;
-    removeFromCart: (id: number) => void;
 };
 
-const CartItem: React.FC<Props> = ({item, addToCart, removeFromCart}) => {
+const CartItem: React.FC<Props> = ({item}) => {
     const classes = useStyles();
 
     return (
@@ -40,26 +37,7 @@ const CartItem: React.FC<Props> = ({item, addToCart, removeFromCart}) => {
                 <div className='information'>
                     <p>Price: ${item.price}</p>
                 </div>
-                <div className='buttons'>
-                    <Button
-                        size='small'
-                        disableElevation
-                        variant='contained'
-                        onClick={() => removeFromCart(item.id)}
-                    >
-                        -
-                    </Button>
-                    <Button
-                        size='small'
-                        disableElevation
-                        variant='contained'
-                        onClick={() => addToCart(item)}
-                    >
-                        +
-                    </Button>
-                </div>
             </div>
-            <img src={item.images[0]} alt={item.name}/>
         </div>
     )
 };

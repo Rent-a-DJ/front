@@ -8,6 +8,7 @@ import {Carousel} from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Button from "@material-ui/core/Button";
 import CartContext from "../contextes/CartContext";
+import DateRangeContext from "../contextes/DateRangeContext";
 
 const useStyles = makeStyles((theme: Theme) => ({
   oneItemGeneral: {
@@ -51,8 +52,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: "1rem"
   },
   redButton: {
-    backgroundColor: "red",
-  }
+    backgroundColor: "red !important",
+    color: "white !important",
+  },
 }));
 
 type Props = {
@@ -120,7 +122,8 @@ const Article: React.FC<Props> = (props) => {
                   }
                 </div>
                 <div className={classes.buttonContainer}>
-                  <Button variant="contained" className={isInCart ? classes.redButton : ""} onClick={handleClick}>{isInCart ? "Enlever du panier" : "Ajouter au panier"}</Button>
+                  <Button variant="contained" className={isInCart ? classes.redButton : ""}
+                          onClick={handleClick}>{isInCart ? "Enlever du panier" : "Ajouter au panier"}</Button>
                 </div>
               </Grid>
             </div>
