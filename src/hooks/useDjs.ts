@@ -28,9 +28,9 @@ const useDjs = () => {
         isAvailable : true,
         price : 30,
         rate : 5,
-        description: "DJ Snoke est un dj né en région\n" +
-          "parisienne. Il est devenu fan d'ondes sonores à l'age de 8 ans. Son groove ne vous laissera pas\n" +
-          "indiférent."
+        description: "Kenji Irak est un dj né en région\n" +
+          "Irakienne. Il est devenu fan de bombes sonores à l'age de 8 ans. Ses mooves ne vous laisseront pas\n" +
+          "indiférents."
       },
     ];
     setDjs(djList);

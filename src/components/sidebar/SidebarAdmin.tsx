@@ -1,13 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {makeStyles} from "@mui/styles";
-import {SidebarData} from "./SidebarData";
+import useSidebarAdmin from "../../hooks/useSidebarAdmin";
+import DateRangeContext from "../../contextes/DateRangeContext";
 
 
 const useStyles = makeStyles((theme) => ({
     sidebar: {
         height: "100%",
         width: "250px",
-        backgroundColor: "blueviolet",
+        backgroundColor: "blue",
     },
     sidebarList: {
         height: "auto",
@@ -38,30 +39,36 @@ const useStyles = makeStyles((theme) => ({
     },
     }));
 
-function SidebarAdmin() {
+const SidebarAdmin: React.FC = () => {
+    const {sidebarAdmin} = useSidebarAdmin();
+    const dateRangeContextValue = useContext(DateRangeContext);
     const classes = useStyles();
+
+    const showElements = dateRangeContextValue.dateRange[0] != null && dateRangeContextValue.dateRange[1] != null;
+
 
     return (
         <div className={classes.sidebar}>
             <ul className={classes.sidebarList}>
-                {SidebarData.map((value, key) => {
-                    return (
-                        <li
-                            key={key}
-                            className={classes.row}
-                            onClick={() => {
-                                window.location.pathname = value.link
-                            }}>
-                            {" "}
-                            <div className={classes.icon}>{value.icon}</div>
-                            {" "}
-                            <div className={classes.title}>
-                                {value.title}
-                            </div>
-                        </li>
-                    )
+                {showElements && (
+                    sidebarAdmin.map((value) => {
+                        return (
+                            <li
+                                key={value.title}
+                                className={classes.row}
+                                onClick={() => {
+                                    window.location.pathname = value.link
+                                }}>
+                                {" "}
+                                <div className={classes.icon}>{value.icon}</div>
+                                {" "}
+                                <div className={classes.title}>
+                                    {value.title}
+                                </div>
+                            </li>
+                        )
 
-                })}
+                    }))}
             </ul>
         </div>
     );
