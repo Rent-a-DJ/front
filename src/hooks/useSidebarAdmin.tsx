@@ -25,12 +25,12 @@ const useSidebarAdmin = () => {
             {
                 title: "Add a DJ",
                 icon: <PersonAddAlt1Icon/>,
-                link: "/addadj"
+                link: "/createdj"
             },
             {
                 title: "Delete a DJ",
                 icon: <PersonRemoveIcon/>,
-                link: "/deleteadj"
+                link: "/deletedj"
             },
             {
                 title: "Messages",

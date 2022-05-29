@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexDirection: "row",
         justifyContent: "center",
     },
+    title: {
+        marginTop: "1rem",
+        textAlign: "center",
+    },
 }));
 
 const ArticlesPage: React.FC = () => {
@@ -48,6 +52,7 @@ const ArticlesPage: React.FC = () => {
 
     return (
         <Container className={classes.cardGrid}>
+            <h1 className={classes.title}>Supprimer un objet</h1>
             <Grid container spacing={4}>
                 {
                     showElements && (

@@ -6,7 +6,7 @@ import {makeStyles} from "@mui/styles";
 import logo from "../assets/logo.png";
 import {Paper, Theme} from "@mui/material";
 import {useState} from "react";
-
+import BackupIcon from '@mui/icons-material/Backup';
 
 const useStyles = makeStyles((theme: Theme) => ({
     fontLogo: {
@@ -45,8 +45,8 @@ const CreateItemAdmin = () => {
 
     return (
         <div>
-            <h1 className={classes.title}>Ajouter un DJ</h1>
             <img src={logo} className={classes.fontLogo} alt="Login"/>
+            <h1 className={classes.title}>Ajouter un DJ</h1>
             <div style={{position: "relative", top: "55%", left: "35%"}}>
                 <Grid container className={"login"}>
                     <Grid item xs={10} sm={5} md={3}>
@@ -63,18 +63,23 @@ const CreateItemAdmin = () => {
                                     direction="column"
                                     spacing={2}
                                 >
-                                    <Grid item container className={classes.imgUploader}
+                                    <Grid item container
                                     >
+                                        <label className={classes.imgUploader}>
+                                        <BackupIcon/>
                                         <TextField
                                             className={classes.inputStyle}
                                             id="image"
                                             label="Images"
                                             variant="outlined"
                                             type="file"
+                                            inputProps={{
+                                                multiple: true
+                                            }}
                                             fullWidth
                                             value={image}
                                             onChange={(e) => setImage(e.target.value)}
-                                        />
+                                        /></label>
                                     </Grid>
                                     <Grid item container>
                                         <TextField
@@ -94,17 +99,6 @@ const CreateItemAdmin = () => {
                                             fullWidth
                                             value={category}
                                             onChange={(e) => setCategory(e.target.value)}
-                                        />
-                                    </Grid>
-                                    <Grid item container>
-                                        <TextField
-                                            id="isAvailable"
-                                            label="Disponible ?"
-                                            variant="outlined"
-                                            fullWidth
-                                            autoFocus
-                                            value={isAvailable}
-                                            onChange={(e) => setIsAvailable(e.target.value)}
                                         />
                                     </Grid>
                                     <Grid item container>
