@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 import {ArticleType} from "./types/ArticleType";
 import CartContext from "./contextes/CartContext";
+import CreateItemAdmin from "./pages/CreateItemAdmin";
 
 function App() {
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
@@ -39,6 +40,8 @@ function App() {
               <Route path="/sidebar" element={<SidebarAdmin/>}/>
               <Route path="/articles" element={<ArticlesPage/>}/>
               <Route path="/djs" element={<DJS/>}/>
+              <Route path="/createitem" element={<CreateItemAdmin/>}/>
+
             </Routes>
           </CartContext.Provider>
           </DateRangeContext.Provider>

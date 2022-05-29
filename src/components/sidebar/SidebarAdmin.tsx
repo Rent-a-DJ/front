@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flex: "70%",
     },
-    }));
+}));
 
 const SidebarAdmin: React.FC = () => {
     const {sidebarAdmin} = useSidebarAdmin();
