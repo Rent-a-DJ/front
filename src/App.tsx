@@ -17,6 +17,9 @@ import {ToastContainer} from "react-toastify";
 import {ArticleType} from "./types/ArticleType";
 import CartContext from "./contextes/CartContext";
 import CreateItemAdmin from "./pages/CreateItemAdmin";
+import DeleteItemAdmin from "./pages/DeleteItemAdmin";
+import CreateDjAdmin from "./pages/CreateDjAdmin";
+import DeleteDjAdmin from "./pages/DeleteDjAdmin";
 
 function App() {
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
@@ -41,7 +44,9 @@ function App() {
               <Route path="/articles" element={<ArticlesPage/>}/>
               <Route path="/djs" element={<DJS/>}/>
               <Route path="/createitem" element={<CreateItemAdmin/>}/>
-
+              <Route path="/deleteitem" element={<DeleteItemAdmin/>}/>
+              <Route path="/createdj" element={<CreateDjAdmin/>}/>
+              <Route path="/deletedj" element={<DeleteDjAdmin/>}/>
             </Routes>
           </CartContext.Provider>
           </DateRangeContext.Provider>

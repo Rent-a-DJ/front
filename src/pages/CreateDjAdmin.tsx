@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         top: 0,
         width: "100%",
     },
+    title: {
+        marginTop: "1rem",
+        textAlign: "center",
+    },
     linkStyle : {
         textDecoration: "none",
         variant:"body2",
@@ -41,6 +45,7 @@ const CreateItemAdmin = () => {
 
     return (
         <div>
+            <h1 className={classes.title}>Ajouter un DJ</h1>
             <img src={logo} className={classes.fontLogo} alt="Login"/>
             <div style={{position: "relative", top: "55%", left: "35%"}}>
                 <Grid container className={"login"}>
@@ -130,7 +135,7 @@ const CreateItemAdmin = () => {
                                                 type="submit"
                                                 fullWidth
                                             >
-                                                Créer mon item
+                                                Créer mon DJ !
                                             </Button>
                                         </Grid>
                                     </Grid>

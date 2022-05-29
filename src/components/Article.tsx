@@ -8,7 +8,6 @@ import {Carousel} from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Button from "@material-ui/core/Button";
 import CartContext from "../contextes/CartContext";
-import DateRangeContext from "../contextes/DateRangeContext";
 
 const useStyles = makeStyles((theme: Theme) => ({
   oneItemGeneral: {
