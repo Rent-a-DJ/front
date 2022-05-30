@@ -20,11 +20,21 @@ const useStyles = makeStyles((theme) => ({
 
 const ChatBox = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isConnected, setIsConnected] = useState(true);
+    const [message, setMessage] = useState("");
+
     const classes = useStyles();
+
+    if(!isConnected){
+        return <></>
+    }
+
+    if (!isOpen) {
+        return <CommentIcon className={classes.commentIcon} onClick={() => setIsOpen(!isOpen)}/>
+    }
 
     return (
         <>
-            {isOpen ?
             <div
                 style={{
                     zIndex: 100,
@@ -59,9 +69,8 @@ const ChatBox = () => {
                             borderRadius: "5px",
                         }}
                     >
-                        Bonjour
+                        Bonjour, comment puis-je vous aider ?
                     </div>
-
                     <p
                         style={{
                             margin: "10px 10px 0 10px",
@@ -80,67 +89,26 @@ const ChatBox = () => {
                             textAlign: "right",
                         }}
                     >
-                        Bonjour
-                    </div>
-
-                    <p style={{margin: "10px 10px 0 10px", color: "red"}}>Admin</p>
-                    <div
-                        style={{
-                            margin: "0px 10px",
-                            padding: "10px",
-                            border: "1px solid black",
-                            borderRadius: "5px",
-                        }}
-                    >
-                        Bla-bla-bla-bla
-                    </div>
-
-                    <p
-                        style={{
-                            margin: "10px 10px 0 10px",
-                            color: "blue",
-                            textAlign: "right",
-                        }}
-                    >
-                        Moi
-                    </p>
-                    <div
-                        style={{
-                            margin: "0px 10px",
-                            padding: "10px",
-                            border: "1px solid black",
-                            borderRadius: "5px",
-                            textAlign: "right",
-                        }}
-                    >
-                        Bla-bla-bla-bla
-                    </div>
-
-                    <p style={{margin: "10px 10px 0 10px", color: "red"}}>Admin</p>
-                    <div
-                        style={{
-                            margin: "0px 10px",
-                            padding: "10px",
-                            border: "1px solid black",
-                            borderRadius: "5px",
-                        }}
-                    >
-                        Bla-bla-bla-bla
+                        {message}
                     </div>
                 </div>
-                <div style={{width: "100%"}}>
+                <form onSubmit={async (e: any) => {
+                    e.preventDefault()}}
+                      style={{width: "100%"}}>
+
                     <input
                         type="text"
                         id="inputText"
                         placeholder="Quel est votre problème ?"
+                        value={message}
+                        onChange={e => setMessage(e.target.value)}
                         style={{width: "90%", height: "60px", margin: "10px"}}
                     />
-                    <button style={{margin: "0 10px", width: "93%"}}>Envoyer</button>
-                </div>
+                    <button style={{margin: "0 10px", width: "93%"}}  disabled={!message}>Envoyer</button>
+
+                </form>
             </div>
-                :
-                <CommentIcon className={classes.commentIcon} onClick={() => setIsOpen(!isOpen)}/>}
         </>
     );
-};
+}
 export default ChatBox;
