@@ -13,29 +13,19 @@ const useSidebarAdmin = () => {
     const fetchSidebar = () => {
         const sidebarData = [
             {
-                title: "Create item",
+                title: "Créer un article",
                 icon: <AddBoxIcon/>,
-                link: "/createitem"
+                link: "/admin/createitem"
             },
             {
-                title: "Delete item",
+                title: "Supprimer un article",
                 icon: <RemoveIcon/>,
-                link: "/deleteitem"
-            },
-            {
-                title: "Add a DJ",
-                icon: <PersonAddAlt1Icon/>,
-                link: "/createdj"
-            },
-            {
-                title: "Delete a DJ",
-                icon: <PersonRemoveIcon/>,
-                link: "/deletedj"
+                link: "/admin/deleteitem"
             },
             {
                 title: "Messages",
                 icon: <ChatIcon/>,
-                link: "/messages"
+                link: "/admin/messages"
             },
         ];
         setSidebarAdmin(sidebarData);

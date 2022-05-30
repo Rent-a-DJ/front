@@ -8,6 +8,9 @@ import {Carousel} from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Button from "@material-ui/core/Button";
 import CartContext from "../contextes/CartContext";
+import useImages from "../hooks/useImages";
+import {API_URL} from "../config";
+import useArticle from "../hooks/useArticle";
 
 const useStyles = makeStyles((theme: Theme) => ({
     oneItemGeneral: {
@@ -58,6 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 type Props = {
     article: ArticleType;
+    fetch: () => void
 }
 
 const ItemAdmin: React.FC<Props> = (props) => {
@@ -65,16 +69,19 @@ const ItemAdmin: React.FC<Props> = (props) => {
     const [likes, setLikes] = useState(props.article.rate);
     const [liked, setLiked] = useState(false);
     const itemAdminContextValue = useContext(CartContext);
-
+    const {images} = useImages(props.article.id);
+    const {deleteArticle} = useArticle();
     const likeClick = () => {
         setLiked(!liked);
         setLikes(liked ? likes - 1 : likes + 1);
     }
     const isDeleted = itemAdminContextValue.articles.find((element) => (element.id == props.article.id)) != undefined;
 
-    const handleClick = () => {
-
+    const handleClick = async () => {
+        await deleteArticle(props.article.id);
+        props.fetch()
     }
+
     return (
         <Container>
             <Grid container spacing={4}>
@@ -84,11 +91,11 @@ const ItemAdmin: React.FC<Props> = (props) => {
                         infiniteLoop
                     >
                         {
-                            props.article.images.map(image => {
+                            images.map(image => {
                                 return (
                                     <CardMedia component="div"
                                                className={classes.cardMedia}
-                                               image={image}
+                                               image={API_URL + "/image/" + image.id}
                                                title="image"
                                     />
                                 )
@@ -104,7 +111,7 @@ const ItemAdmin: React.FC<Props> = (props) => {
                             <Grid container justifyContent="space-between" alignItems="flex-end">
                                 <div>
                                     <span>Prix/jour :</span>
-                                    <span>{props.article.price}</span>
+                                    <span>{props.article.priceByDay}</span>
                                 </div>
                                 <div onClick={likeClick}>
                                     <span>{likes}</span>

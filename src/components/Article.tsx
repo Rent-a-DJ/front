@@ -8,6 +8,9 @@ import {Carousel} from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Button from "@material-ui/core/Button";
 import CartContext from "../contextes/CartContext";
+import useImages from "../hooks/useImages";
+import {API_URL} from "../config";
+import useLikes from "../hooks/useLikes";
 
 const useStyles = makeStyles((theme: Theme) => ({
   oneItemGeneral: {
@@ -62,13 +65,14 @@ type Props = {
 
 const Article: React.FC<Props> = (props) => {
   const classes = useStyles();
-  const [likes, setLikes] = useState(props.article.rate);
   const [liked, setLiked] = useState(false);
   const cartContextValue = useContext(CartContext);
+  const {images} = useImages(props.article.id);
+  const {likesNumber, setLikesNumber, isLiked, like} = useLikes(props.article.id);
 
   const likeClick = () => {
     setLiked(!liked);
-    setLikes(liked ? likes - 1 : likes + 1);
+    setLikesNumber(likesNumber ? likesNumber - 1 : likesNumber + 1);
   }
   const isInCart = cartContextValue.articles.find((element) => (element.id == props.article.id)) != undefined;
 
@@ -88,11 +92,11 @@ const Article: React.FC<Props> = (props) => {
             infiniteLoop
           >
             {
-              props.article.images.map(image => {
+              images.map(image => {
                 return (
                   <CardMedia component="div"
                              className={classes.cardMedia}
-                             image={image}
+                             image={API_URL + "/image/" + image.id}
                              title="image"
                   />
                 )
@@ -108,12 +112,12 @@ const Article: React.FC<Props> = (props) => {
               <Grid container justifyContent="space-between" alignItems="flex-end">
                 <div>
                   <span>Prix/jour :</span>
-                  <span>{props.article.price}</span>
+                  <span>{props.article.priceByDay}</span>
                 </div>
-                <div onClick={likeClick}>
-                  <span>{likes}</span>
+                <div onClick={like}>
+                  <span>{likesNumber}</span>
                   {
-                    liked ? (
+                    isLiked ? (
                       <FavoriteIcon className={classes.icon}/>
                     ) : (
                       <FavoriteBorderIcon className={classes.icon}/>

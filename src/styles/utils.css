@@ -39,8 +39,13 @@
     margin: 1rem;
 }
 
+.marginOne {
+    margin-top: 1rem !important;
+}
 
 /*text*/
 .centerText {
     text-align: center;
 }
+
+

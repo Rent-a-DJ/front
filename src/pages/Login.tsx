@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, {FormEvent, useState} from "react";
 import { Grid } from "@mui/material";
 import { Paper, TextField, Button, Theme } from "@material-ui/core";
 import {makeStyles} from "@mui/styles";
 import logo from "../assets/logo.png";
+import useLogin from "../hooks/useLogin";
+import {useNavigate} from "react-router-dom";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -17,7 +19,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Login: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const {login} = useLogin();
+    const navigate = useNavigate()
     const classes = useStyles();
+
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        login(email, password).then(r => {if (r) navigate("/")});
+    }
 
     return (
         <div>
@@ -44,7 +53,7 @@ const Login: React.FC = () => {
                                     opacity: "0.9",
                                 }}
                             >
-                                <form onSubmit={(e) => e.preventDefault()}>
+                                <form onSubmit={onSubmit}>
                                     <Grid
                                         container
                                         alignItems="center"

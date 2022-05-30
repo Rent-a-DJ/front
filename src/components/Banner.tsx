@@ -23,10 +23,11 @@ import {Link} from "react-router-dom";
 import {useContext, useState} from "react";
 import CartPage from "../pages/CartPage";
 import cartContext from "../contextes/CartContext";
+import UserContext from "../contextes/UserContext";
+import {toast} from "react-toastify";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
-
   logo: {
     width: "50px",
     height: "auto",
@@ -47,11 +48,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     variant: "h6",
 
   },
-
   name: {
     variant: "h6",
     sx: {flexGrow: 1},
   },
+  profileContainer: {
+    padding: "1rem"
+  },
+  label: {
+    fontWeight: "bold"
+  }
+
 }));
 
 const Banner = () => {
@@ -59,6 +66,7 @@ const Banner = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const cartContextValue = useContext(cartContext);
+  const userContextValue = useContext(UserContext);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -73,12 +81,66 @@ const Banner = () => {
   };
 
 
+  const handleLogout = () => {
+    handleCloseUserMenu()
+    localStorage.removeItem("token");
+    userContextValue.setUser(null);
+    toast.success("Vous êtes déconnecté");
+  }
+
   const pages = ["Accueil", "Matériel", "Djs"];
-  const userSettings = ["Inscription", "Connexion"];
-
-
-  const profileLink = ["/signIn", "/logIn"];
   const navbarLink = ["/", "/articles", "/djs"];
+
+  const UserSpace = () => {
+    if (userContextValue.user != null) {
+      const user = userContextValue.user;
+      return (
+        <div className={classes.profileContainer}>
+          <div>
+            <span className={classes.label}>Nom: </span>
+            <span>{user.lastName}</span>
+          </div>
+          <div>
+            <span className={classes.label}>Prénom: </span>
+            <span>{user.firstName}</span>
+          </div>
+          <div>
+            <span className={classes.label}>Solde: </span>
+            <span>{user.coins} €</span>
+          </div>
+          {
+            userContextValue.user.isAdmin && (
+              <Link to={"/admin/createitem"} className={classes.linkUserStyle}>
+                <MenuItem key={"admin"} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Administration</Typography>
+                </MenuItem>
+              </Link>
+            )
+          }
+          <MenuItem key={"logout"} onClick={handleLogout}>
+            <Typography textAlign="center">Se déconnecter</Typography>
+          </MenuItem>
+        </div>
+      )
+    }
+
+    return (
+      <>
+        <Link to={"/logIn"} className={classes.linkUserStyle}>
+          <MenuItem key={"Connexion"} onClick={handleCloseUserMenu}>
+            <Typography textAlign="center">Connexion</Typography>
+          </MenuItem>
+        </Link>
+        <Link to={"/signIn"} className={classes.linkUserStyle}>
+          <MenuItem key={"signIn"} onClick={handleCloseUserMenu}>
+            <Typography textAlign="center">S'inscrire</Typography>
+          </MenuItem>
+        </Link>
+      </>
+    )
+
+  }
+
 
   const classes = useStyles();
   return (
@@ -112,18 +174,18 @@ const Banner = () => {
             ))}
           </Box>
           <Box>
-              <Badge badgeContent={cartContextValue.articles.length} color="success">
-                <IconButton
-                  onClick={() => setCartOpen(!cartOpen && cartContextValue.articles.length != 0)}
-                  aria-label="show shopping"
-                  color="inherit"
-                >
-                  <Tooltip title="Panier">
+            <Badge badgeContent={cartContextValue.articles.length} color="success">
+              <IconButton
+                onClick={() => setCartOpen(!cartOpen && cartContextValue.articles.length != 0)}
+                aria-label="show shopping"
+                color="inherit"
+              >
+                <Tooltip title="Panier">
                   <LocalGroceryStoreSharpIcon/>
-                  </Tooltip>
-                </IconButton>
-                  <CartPage isOpen={cartOpen} setIsOpen={setCartOpen}/>
-              </Badge>
+                </Tooltip>
+              </IconButton>
+              <CartPage isOpen={cartOpen} setIsOpen={setCartOpen}/>
+            </Badge>
           </Box>
           <Box>
             <Tooltip title="Profil">
@@ -150,13 +212,7 @@ const Banner = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {userSettings.map((item, index) => (
-                <Link to={profileLink[index]} className={classes.linkUserStyle}>
-                  <MenuItem key={item} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{item}</Typography>
-                  </MenuItem>
-                </Link>
-              ))}
+              <UserSpace/>
             </Menu>
           </Box>
         </Toolbar>

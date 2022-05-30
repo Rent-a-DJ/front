@@ -52,7 +52,7 @@ const Cart: React.FC<Props> = ({setIsOpen}) => {
     {locale: fr}
   )
 
-  const total = cartContextValue.articles.reduce((ack: number, item) => ack + item.price, 0);
+  const total = cartContextValue.articles.reduce((ack: number, item) => ack + item.priceByDay, 0);
 
   return (
     <div className={classes.compo}>

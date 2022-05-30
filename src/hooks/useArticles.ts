@@ -1,85 +1,29 @@
 import {useEffect, useState} from "react";
-import {ArticleType} from "../types/ArticleType";
+import {ArticleType, FilterType} from "../types/ArticleType";
+import axios from "axios";
 
-const useArticles = () => {
+const useArticles = (filter: FilterType) => {
   const [articles, setArticles] = useState<ArticleType[]>([]);
 
-  const fetchItems = () => {
-    const articleList = [
-      {
-        images: ["https://source.unsplash.com/random", "https://source.unsplash.com/random"],
-        name: 'enceinte',
-        category: 'sound',
-        id: 0,
-        isAvailable: true,
-        price: 60,
-        rate: 5,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est"
-      },
-      {
-        images: ["https://source.unsplash.com/random", "https://source.unsplash.com/random"],
-        name: 'lyre',
-        category: 'lightning',
-        id: 1,
-        isAvailable: true,
-        price: 30,
-        rate: 5,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est"
-      },
-      {
-        images: ["https://source.unsplash.com/random", "https://source.unsplash.com/random"],
-        name: 'par',
-        category: 'lightning',
-        id: 2,
-        isAvailable: true,
-        price: 20,
-        rate: 5,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est"
-      },
-      {
-        images: ["https://source.unsplash.com/random", "https://source.unsplash.com/random"],
-        name: 'derby',
-        category: 'lightning',
-        id: 3,
-        isAvailable: true,
-        price: 30,
-        rate: 5,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est"
-      },
-      {
-        images: ["https://source.unsplash.com/random", "https://source.unsplash.com/random"],
-        name: 'lumière UV',
-        category: 'lightning',
-        id: 4,
-        isAvailable: true,
-        price: 30,
-        rate: 5,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est\n" +
-          "Pellentesque dapibus metus semper diam vulputate, quis fringilla est"
-      },
-    ];
-    setArticles(articleList);
+  const fetchItems = async () => {
+    try {
+      let {data} = await axios.get<ArticleType[]>("/article/items");
+      if (filter.name != "all" && filter.name != "admin") {
+        data = data.filter((element) => element.category.name == filter.name)
+      } else  if (filter.name == "all") {
+        data = data.filter((element) => element.category.name != "dj")
+      }
+      setArticles(data);
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   useEffect(() => {
     fetchItems();
-  }, []);
+  }, [filter.name]);
 
-  return {articles}
+  return {articles, fetchItems}
 }
 
 export default useArticles;

@@ -1,7 +1,7 @@
 import * as React from "react";
 import {makeStyles} from "@mui/styles";
-import useDjs from "../hooks/useDjs";
 import Dj from "../components/Dj";
+import useArticles from "../hooks/useArticles";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -22,13 +22,13 @@ const useStyles = makeStyles((theme) => ({
 
 const DJS = () => {
   const classes = useStyles();
-  const {djs} = useDjs();
+  const {articles} = useArticles({name: "dj"});
   return (
     <div className={classes.pageContainer}>
       <h1 className={classes.title}>Louer un DJ</h1>
       <div className={classes.djsContainer}>
         {
-          djs.map((dj) => <Dj dj={dj}/>)
+          articles.map((dj) => <Dj dj={dj}/>)
         }
       </div>
     </div>

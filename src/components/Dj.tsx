@@ -5,6 +5,10 @@ import {ArticleType} from "../types/ArticleType";
 import CartContext from "../contextes/CartContext";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import {Carousel} from "react-responsive-carousel";
+import {API_URL} from "../config";
+import useImages from "../hooks/useImages";
+import useLikes from "../hooks/useLikes";
 
 const useStyles = makeStyles((theme) => ({
   djContainer: {
@@ -47,13 +51,14 @@ type Props = {
 
 const Dj: React.FC<Props> = (props) => {
   const classes = useStyles();
-  const [likes, setLikes] = useState(props.dj.rate);
   const [liked, setLiked] = useState(false);
+  const {images} = useImages(props.dj.id);
   const cartContextValue = useContext(CartContext);
+  const {likesNumber, setLikesNumber, countLikes} = useLikes(props.dj.id);
 
   const likeClick = () => {
-    setLiked(!liked);
-    setLikes(liked ? likes - 1 : likes + 1);
+    setLiked(!likesNumber);
+    setLikesNumber(likesNumber ? likesNumber - 1 : likesNumber + 1);
   }
 
   const isInCart = cartContextValue.articles.find((element) => (element.id == props.dj.id)) != undefined;
@@ -67,14 +72,24 @@ const Dj: React.FC<Props> = (props) => {
 
   return (
     <div className={classes.djContainer}>
-      <img src={props.dj.images[0]} className={classes.djImage} alt={"dj photo"}/>
+      <Carousel
+        dynamicHeight
+        infiniteLoop
+        showThumbs={false}
+      >
+        {
+          images.map((image) => {
+            return <img src={API_URL + "/image/" + image.id} className={classes.djImage} alt={"dj photo"}/>
+          })
+        }
+      </Carousel>
       <div className={classes.detailsContainer}>
         <div><p><span className={classes.informationLabel}>Description: </span> {props.dj.description}</p></div>
 
         <div><span className={classes.informationLabel}>Nom: </span><span>{props.dj.name}</span></div>
         <div><span className={classes.informationLabel}>Likes: </span>
           <span onClick={likeClick}>
-            <span>{likes}</span>
+            <span>{likesNumber}</span>
             {
               liked ? (
                 <FavoriteIcon className={classes.icon}/>
@@ -84,7 +99,7 @@ const Dj: React.FC<Props> = (props) => {
             }
           </span>
         </div>
-        <div><span className={classes.informationLabel}>Prix par jour: </span><span>{props.dj.price}€</span></div>
+        <div><span className={classes.informationLabel}>Prix par jour: </span><span>{props.dj.priceByDay}€</span></div>
         <div>
           <Button style={{width: "100%"}} variant="contained" className={isInCart ? classes.redButton : ""}
                   onClick={handleClick}>

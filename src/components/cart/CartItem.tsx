@@ -35,7 +35,7 @@ const CartItem: React.FC<Props> = ({item}) => {
             <div>
                 <h3>{item.name}</h3>
                 <div className='information'>
-                    <p>Price: ${item.price}</p>
+                    <p>Price: ${item.priceByDay}</p>
                 </div>
             </div>
         </div>

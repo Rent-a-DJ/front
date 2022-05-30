@@ -1,159 +1,181 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
 import {makeStyles} from "@mui/styles";
-import logo from "../assets/logo.png";
-import {Paper, Theme, Tooltip} from "@mui/material";
-import {useState} from "react";
+import {MenuItem, Paper, Select, Theme, Tooltip} from "@mui/material";
+import {FormEvent, useContext, useState} from "react";
 import BackupIcon from '@mui/icons-material/Backup';
-import LocalGroceryStoreSharpIcon from "@mui/icons-material/LocalGroceryStoreSharp";
+import CategoriesContext from "../contextes/CategoriesContext";
+import useArticle from "../hooks/useArticle";
+import {toast} from "react-toastify";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
-    bgImg: {
-        width: "100%",
-        height: "100%",
-        backgroundImage: "url(/logo.png)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-    },
-    linkStyle: {
-        textDecoration: "none",
-        variant: "body2",
-    },
-    inputStyle: {
-        display: "none",
-    },
-    imgUploader: {
-        display: "inlineBlock",
-        padding: "6px 12px",
-        cursor: "pointer",
-    },
-    title: {
-        marginTop: "1rem",
-        textAlign: "center",
-        zIndex:100,
-    },
-    iconImage: {
-        margin: "5px",
-        width:"100%",
-    },
-    imgLabel:{
-        width:"100%",
-    },
-    form: {
-        marginLeft:"auto",
-        marginRight:"auto",
+  bgImg: {
+    width: "100%",
+    height: "100%",
+    backgroundImage: "url(/logo.png)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+  },
+  linkStyle: {
+    textDecoration: "none",
+    variant: "body2",
+  },
+  inputStyle: {
+    display: "none",
+  },
+  imgUploader: {
+    display: "inlineBlock",
+    padding: "6px 12px",
+    cursor: "pointer",
+  },
+  title: {
+    marginTop: "1rem",
+    textAlign: "center",
+    zIndex: 100,
+  },
+  iconImage: {
+    margin: "5px",
+    width: "100%",
+  },
+  imgLabel: {
+    width: "100%",
+  },
+  formContainer: {
+    width: "70%",
+    marginRight: "auto",
+    marginLeft: "auto",
+  },
+  paper: {
+    opacity: "0.9"
+  },
+  form: {
+    height: "100%",
+    width: "100%",
+    "& > *": {
+      marginTop: "3rem"
     }
+  },
+  marginTopOne: {
+    marginTop: "2rem"
+  },
+  fullWidth: {
+    width: "100%"
+  }
 }));
 const CreateItemAdmin = () => {
-    const classes = useStyles();
-    const [image, setImage] = useState("");
-    const [name, setName] = useState("");
-    const [category, setCategory] = useState("");
-    const [isAvailable, setIsAvailable] = useState<any | null>(null);
-    const [price, setPrice] = useState("");
-    const [description, setDescription] = useState("");
+  const classes = useStyles();
+  const categoriesContextValues = useContext(CategoriesContext);
+  const [images, setImages] = useState<FileList | null>(null);
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState<number>(0);
+  const [price, setPrice] = useState(0);
+  const [description, setDescription] = useState("");
+  const {createArticle} = useArticle();
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const articleDto = {
+      name,
+      category,
+      priceByDay: price,
+      description
+    }
 
-    return (
-        <div className={classes.bgImg}>
-            <h1 className={classes.title}>Ajouter un objet</h1>
-            <div className={classes.form}>
-                <Grid container className={classes.form}>
-                    <Grid item xs={10} sm={5} md={3}>
-                        <Paper
-                            style={{
-                                padding: "3vh",
-                                opacity: "0.9",
-                            }}
-                        >
-                            <form className={classes.form}
-                                onSubmit={(e) => e.preventDefault()}>
-                                <Grid
-                                    container
-                                    alignItems="center"
-                                    direction="column"
-                                    spacing={2}
-                                >
-                                    <Grid item container className={classes.imgUploader}
-                                    >
-                                        <label htmlFor="image" className={classes.imgLabel}>
-                                            <input className={classes.inputStyle}
-                                                   accept="image/*"
-                                                   id="image"
-                                                   multiple type="file"
-                                                   onChange={(e) => setImage(e.target.value)}
-                                            />
-                                            <Button variant="contained" component="span" className={classes.iconImage}>
-                                                <Tooltip title="Ajouter des images" className={classes.imgLabel}>
-                                                    <BackupIcon/>
-                                                </Tooltip>
-                                                Ajouter des images
-                                            </Button>
-                                        </label>
-                                    </Grid>
-                                    <Grid item container>
-                                        <TextField
-                                            id="name"
-                                            label="Nom"
-                                            variant="outlined"
-                                            fullWidth
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                        />
-                                    </Grid>
-                                    <Grid item container>
-                                        <TextField
-                                            id="category"
-                                            label="Catégorie"
-                                            variant="outlined"
-                                            fullWidth
-                                            value={category}
-                                            onChange={(e) => setCategory(e.target.value)}
-                                        />
-                                    </Grid>
-                                    <Grid item container>
-                                        <TextField
-                                            id="price"
-                                            label="Prix"
-                                            variant="outlined"
-                                            fullWidth
-                                            value={price}
-                                            onChange={(e) => setPrice(e.target.value)}
-                                        />
-                                    </Grid>
-                                    <Grid item container>
-                                        <TextField
-                                            id="description"
-                                            label="Description"
-                                            variant="outlined"
-                                            fullWidth
-                                            value={description}
-                                            onChange={(e) => setDescription(e.target.value)}
-                                        />
-                                    </Grid>
-                                    <Grid item container direction="row-reverse" spacing={2}>
-                                        <Grid item container>
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                type="submit"
-                                                fullWidth
-                                            >
-                                                Créer mon item
-                                            </Button>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </form>
-                        </Paper>
-                    </Grid>
-                </Grid>
+    if (images)
+      createArticle(articleDto, images);
+    else
+      toast.error("Sélectionnez des images");
+  }
+  return (
+    <div className={classes.bgImg}>
+      <h1 className={classes.title}>Ajouter un objet</h1>
+      <div className={classes.formContainer}>
+        <Paper className={classes.paper}>
+          <form onSubmit={handleSubmit} className={"fullHeightPercent fullWidth"}>
+            <label htmlFor="image" className={classes.imgLabel}>
+              <input className={classes.inputStyle}
+                     accept="image/*"
+                     id="image"
+                     multiple type="file"
+                     onChange={(e) => setImages(e.target.files)}
+              />
+              <Button variant="contained" component="span" className={classes.iconImage}>
+                <Tooltip title="Ajouter des images" className={classes.imgLabel}>
+                  <BackupIcon/>
+                </Tooltip>
+                Ajouter des images
+              </Button>
+            </label>
+            <div className={classes.marginTopOne}>
+              <Select
+                labelId="category"
+                id="category"
+                variant={"outlined"}
+                value={category}
+                label="Catégorie"
+                onChange={(e) => setCategory(+e.target.value)}
+                className={classes.fullWidth}
+              >
+                {
+                  categoriesContextValues.categories.map((category) => {
+                    return (
+                      <MenuItem value={category.id} className={classes.fullWidth}>{category.name}</MenuItem>
+                    )
+                  })
+                }
+              </Select>
             </div>
-        </div>
-    );
+            <div className={classes.marginTopOne}>
+              <TextField
+                id="name"
+                label="Nom"
+                variant="outlined"
+                fullWidth
+                value={name}
+                className={"marginTopOne"}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className={classes.marginTopOne}>
+              <TextField
+                id="price"
+                label="Prix"
+                variant="outlined"
+                type={"number"}
+                fullWidth
+                value={price}
+                className={"marginTopOne"}
+                onChange={(e) => setPrice(+e.target.value)}
+              />
+            </div>
+            <div className={classes.marginTopOne}>
+              <TextField
+                id="description"
+                label="Description"
+                variant="outlined"
+                fullWidth
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className={classes.marginTopOne}>
+              <Button
+                className={"marginTopOne"}
+                variant="contained"
+                color="primary"
+                type="submit"
+                fullWidth
+              >
+                Créer mon item
+              </Button>
+            </div>
+          </form>
+        </Paper>
+      </div>
+    </div>
+  );
 };
 
 export default CreateItemAdmin;
