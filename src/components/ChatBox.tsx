@@ -4,12 +4,14 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import {useState} from "react";
 import "../styles/chatbot.css"
+import CommentIcon from '@mui/icons-material/Comment';
+
 const useStyles = makeStyles((theme) => ({
   flex: {},
 }));
 
 const ChatBox = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const classes = useStyles();
 
   return (

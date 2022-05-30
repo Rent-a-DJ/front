@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import {makeStyles} from "@mui/styles";
 import logo from "../assets/logo.png";
-import {Paper, Theme} from "@mui/material";
+import {Paper, Theme, Tooltip} from "@mui/material";
 import {useState} from "react";
 import BackupIcon from '@mui/icons-material/Backup';
 
@@ -14,10 +14,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         left: 0,
         top: 0,
         width: "100%",
-    },
-    title: {
-        marginTop: "1rem",
-        textAlign: "center",
     },
     linkStyle : {
         textDecoration: "none",
@@ -30,7 +26,18 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: "inlineBlock",
         padding: "6px 12px",
         cursor: "pointer",
-    }
+    },
+    title: {
+        marginTop: "1rem",
+        textAlign: "center",
+    },
+    iconImage: {
+        margin: "5px",
+        width:"100%",
+    },
+    imgLabel:{
+        width:"100%",
+    },
 }));
 const CreateItemAdmin = () => {
     const classes = useStyles();
@@ -63,23 +70,22 @@ const CreateItemAdmin = () => {
                                     direction="column"
                                     spacing={2}
                                 >
-                                    <Grid item container
+                                    <Grid item container className={classes.imgUploader}
                                     >
-                                        <label className={classes.imgUploader}>
-                                        <BackupIcon/>
-                                        <TextField
-                                            className={classes.inputStyle}
-                                            id="image"
-                                            label="Images"
-                                            variant="outlined"
-                                            type="file"
-                                            inputProps={{
-                                                multiple: true
-                                            }}
-                                            fullWidth
-                                            value={image}
-                                            onChange={(e) => setImage(e.target.value)}
-                                        /></label>
+                                        <label htmlFor="image" className={classes.imgLabel}>
+                                            <input className={classes.inputStyle}
+                                                   accept="image/*"
+                                                   id="image"
+                                                   multiple type="file"
+                                                   onChange={(e) => setImage(e.target.value)}
+                                            />
+                                            <Button variant="contained" component="span" className={classes.iconImage}>
+                                                <Tooltip title="Ajouter des images" className={classes.imgLabel}>
+                                                    <BackupIcon/>
+                                                </Tooltip>
+                                                Ajouter des images
+                                            </Button>
+                                        </label>
                                     </Grid>
                                     <Grid item container>
                                         <TextField

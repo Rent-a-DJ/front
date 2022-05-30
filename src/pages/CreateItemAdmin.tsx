@@ -11,11 +11,12 @@ import LocalGroceryStoreSharpIcon from "@mui/icons-material/LocalGroceryStoreSha
 
 
 const useStyles = makeStyles((theme: Theme) => ({
-    fontLogo: {
-        position: "fixed",
-        left: 0,
-        top: 0,
+    bgImg: {
         width: "100%",
+        height: "100%",
+        backgroundImage: "url(/logo.png)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
     },
     linkStyle: {
         textDecoration: "none",
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     title: {
         marginTop: "1rem",
         textAlign: "center",
+        zIndex:100,
     },
     iconImage: {
         margin: "5px",
@@ -40,6 +42,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     imgLabel:{
         width:"100%",
     },
+    form: {
+        marginLeft:"auto",
+        marginRight:"auto",
+    }
 }));
 const CreateItemAdmin = () => {
     const classes = useStyles();
@@ -52,11 +58,10 @@ const CreateItemAdmin = () => {
 
 
     return (
-        <div>
+        <div className={classes.bgImg}>
             <h1 className={classes.title}>Ajouter un objet</h1>
-            <img src={logo} className={classes.fontLogo} alt="Login"/>
-            <div style={{position: "relative", top: "55%", left: "35%"}}>
-                <Grid container className={"login"}>
+            <div className={classes.form}>
+                <Grid container className={classes.form}>
                     <Grid item xs={10} sm={5} md={3}>
                         <Paper
                             style={{
@@ -64,7 +69,8 @@ const CreateItemAdmin = () => {
                                 opacity: "0.9",
                             }}
                         >
-                            <form onSubmit={(e) => e.preventDefault()}>
+                            <form className={classes.form}
+                                onSubmit={(e) => e.preventDefault()}>
                                 <Grid
                                     container
                                     alignItems="center"
